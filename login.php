@@ -1,5 +1,5 @@
 <?php
-include_once("componentes/resenasDB.php");
+require_once("componentes/resenasDB.php");
 
 if ($_SERVER["REQUEST_METHOD"]=="GET" && isset($_GET['error'])) {
     $mensajeError = $_GET['error'];

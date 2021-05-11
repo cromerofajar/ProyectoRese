@@ -34,4 +34,25 @@ class ResenasDB extends Resenas
     }
 
 
+    public static function cargarGeneros(){
+        $generos=[];
+        try{
+            $sql = "select genero,codigo from generos";
+            $preparada=self::getConexion()->prepare($sql);
+            $preparada->execute();
+            if($preparada->rowCount()>0){
+                foreach($preparada as $dato){
+                    array_push($generos,$dato[0]);
+                }
+            }
+        } catch (PDOException $e) {
+            throw new Exception('Error con la base de datos: ' . $e->getMessage());
+        }
+        return $generos;
+    }
+
+    public static function generarHtml(){
+        $generos=self::cargarGeneros();
+        echo $generos[0];
+    }
 }
