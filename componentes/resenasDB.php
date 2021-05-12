@@ -4,7 +4,7 @@ class ResenasDB extends Resenas
 {
     protected $usuario;
     private static $conexion;
- 
+    private static $generoSelct;
     public static function getConexion() {
         if (!isset(self::$conexion)) {
             $cadena_conexion = 'mysql:dbname=datospagina;host=127.0.0.1';
@@ -42,7 +42,7 @@ class ResenasDB extends Resenas
             $preparada->execute();
             if($preparada->rowCount()>0){
                 foreach($preparada as $dato){
-                    array_push($generos,$dato[0]);
+                    array_push($generos,$dato);
                 }
             }
         } catch (PDOException $e) {
@@ -51,8 +51,35 @@ class ResenasDB extends Resenas
         return $generos;
     }
 
+    private function mostrarJuegos($juegos){
+        foreach($juegos as $mostrar){
+            $mostrar="<button class='btn btn-block' type='button'>".$juego."</button>";
+            echo $mostrar;
+        }
+    }
+
+    public function buscarJuegos($codigo){
+        $juegos;
+        try{
+            $sql="select titulo from juegos where genero=".$codigo;
+            $preparada=self::getConexion()->prepare($sql);
+            $preparada->execute();
+            if($preparada->rowCount()>0){
+                foreach($preparada as $juego){
+                    array_push($juegos, $juego);
+                }
+            }
+        } catch (PDOException $e) {
+            throw new Exception('Error con la base de datos: ' . $e->getMessage());
+        }
+        self::mostrarJuegos($juegos);
+    }
+
     public static function generarHtml(){
         $generos=self::cargarGeneros();
-        echo $generos[0];
+        foreach($generos as $dato){
+            $campos="<button class='btn btn-block' type='button' id=".$dato[1]." onclick=''>".$dato[0]."</button>";
+            echo $campos;
+        }
     }
 }
