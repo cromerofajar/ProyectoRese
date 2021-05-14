@@ -61,7 +61,7 @@
     <script>
       $(document).ready(function(){
         $("#juegoSeleccionado").children().children().children().on("click",function(){
-          
+          buscarJuegos(this.id);
         });
       });
     </script>

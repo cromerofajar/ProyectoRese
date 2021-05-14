@@ -15,15 +15,15 @@ class ResenasDB extends Resenas
         return self::$conexion;
     }
 
-    public static function login($nombre,$contraseña) {
+    public static function login($nombre,$contrasena) {
       $datos = false;
       try {
-            $sql = "select nombre,clave from usuarios where nombre = :nom && clave = :clave"; 
+            $sql = "select nombre,clave from usuarios where nombre = :nom";
             $preparada = self::getConexion()->prepare($sql);	
-            $preparada->execute( array(':nom'=>$nombre,':clave'=>$contraseña));
+            $preparada->execute(array(':nom'=>$nombre));
             if ($preparada->rowCount() == 1) {
                 $datos = $preparada->fetchAll(PDO::FETCH_ASSOC)[0];
-                if ($datos['nombre']==$nombre && $datos['clave']==$contraseña) {
+                if ($datos['nombre']==$nombre && password_verify($contrasena,$datos['clave'])) {
                     return true;
                 }
             }
@@ -33,6 +33,31 @@ class ResenasDB extends Resenas
         return $datos;
     }
 
+    public static function registrarse($nombre,$contraseña){
+        $datos = false;
+      try {
+            $sql = "select nombre from usuarios where nombre = :nom"; 
+            $preparada = self::getConexion()->prepare($sql);	
+            $preparada->execute( array(':nom'=>$nombre));
+            if ($preparada->rowCount() == 1) {
+                $datos = $preparada->fetchAll(PDO::FETCH_ASSOC)[0];
+                if ($datos['nombre']==$nombre) {
+                    return false;
+                }
+            }else{
+                $sqlregis="insert into usuarios(nombre,clave,rango) values (:nombre,:clave,0)";
+                $contraseñahash = password_hash($contraseña, PASSWORD_DEFAULT);
+                $prepa=self::getConexion()->prepare($sqlregis);
+                $prepa->execute(array(':nombre'=>$nombre,':clave'=>$contraseñahash));
+                if($prepa->rowCount()>0){
+                    return true;
+                }
+            }
+        } catch (PDOException $e) {
+             throw new Exception('Error con la base de datos: ' . $e->getMessage());
+        }
+        return $datos;
+    }
 
     public static function cargarGeneros(){
         $generos=[];
@@ -78,7 +103,7 @@ class ResenasDB extends Resenas
     public static function generarHtml(){
         $generos=self::cargarGeneros();
         foreach($generos as $dato){
-            $campos="<button class='btn btn-block' type='button' id=".$dato[1]." onclick=''>".$dato[0]."</button>";
+            $campos="<button class='btn btn-block' type='button' id=".$dato[1].">".$dato[0]."</button>";
             echo $campos;
         }
     }
