@@ -12,7 +12,7 @@ require_once("resenasDB.php");
         <div class="row container">
             <div class="form-box">
                 <?php
-                    resenasDB::generarHtml();
+                    resenasDB::mostrarGeneros();
                 ?>
             </div>
         </div>

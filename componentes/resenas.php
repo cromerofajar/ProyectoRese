@@ -21,13 +21,13 @@ abstract class Resenas
     }
 
     protected function cargarDatosSesion() {
-        $datos = unserialize($_SESSION[Ahorcado::NOMBRE_SESSION]);
+        $datos = unserialize($_SESSION[Resenas::NOMBRE_SESSION]);
         foreach ($datos as $key => $value) {
            $this->$key = $value;
         }
     }
     protected function guardarDatosSesion() {
-        $_SESSION[Ahorcado::NOMBRE_SESSION] = serialize($this);
+        $_SESSION[Resenas::NOMBRE_SESSION] = serialize($this);
 
     }
 

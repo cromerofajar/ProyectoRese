@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['iniciar'])) {
     
 }
 
-
 if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['registrarse'])) {
     if(resenasDB::registrarse($_POST['usuario'],$_POST['contra'])){
         setcookie('Usuario',$_POST['usuario'], time()+3600);
@@ -37,4 +36,5 @@ if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['registrarse'])) {
         exit(0);
     }
 }
+
 include_once("componentes/pestanaslogin.php");

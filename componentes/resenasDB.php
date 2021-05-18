@@ -76,35 +76,59 @@ class ResenasDB extends Resenas
         return $generos;
     }
 
-    private function mostrarJuegos($juegos){
+    private function mostrarJuegos(){
         foreach($juegos as $mostrar){
-            $mostrar="<button class='btn btn-block' type='button'>".$juego."</button>";
+            $mostrar="<button class='btn btn-block' type='button'>".$mostrar."</button>";
             echo $mostrar;
         }
     }
 
-    public function buscarJuegos($codigo){
-        $juegos;
+    public function buscarJuegos(){
+        //generar el filtrado sin realizar falta el WHERE con el $codigo que le tendria que pasar desde el boton de mostrar genero
+        $juegos=[];
         try{
-            $sql="select titulo from juegos where genero=".$codigo;
+            $sql="select genero,titulo from juegos";
             $preparada=self::getConexion()->prepare($sql);
             $preparada->execute();
             if($preparada->rowCount()>0){
                 foreach($preparada as $juego){
-                    array_push($juegos, $juego);
+                    echo $juego['titulo'];
                 }
             }
         } catch (PDOException $e) {
             throw new Exception('Error con la base de datos: ' . $e->getMessage());
         }
-        self::mostrarJuegos($juegos);
+        self::mostrarJuegos();
     }
 
-    public static function generarHtml(){
+    public static function mostrarGeneros(){
         $generos=self::cargarGeneros();
         foreach($generos as $dato){
             $campos="<button class='btn btn-block' type='button' id=".$dato[1].">".$dato[0]."</button>";
             echo $campos;
         }
+    }
+
+    private function mostrarResenas($resenas){
+        foreach($resenas as $mostrar){
+            $mostrar="<button class='btn btn-block' type='button'>".$mostrar."</button>";
+            echo $mostrar;
+        }
+    }
+    public function buscarResenas(){
+        $resenas=[];
+        try{
+            $sql="select titulo,resena,usuario,tipo from resenas";
+            $preparada=self::getConexion()->prepare($sql);
+            $preparada->execute();
+            if($preparada->rowCount()>0){
+                foreach($preparada as $resena){
+                    array_push($resenas, $resena[0]);
+                }
+            }
+        } catch (PDOException $e) {
+            throw new Exception('Error con la base de datos: ' . $e->getMessage());
+        }
+        self::mostrarResenas($resenas);
     }
 }
