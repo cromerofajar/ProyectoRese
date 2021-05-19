@@ -23,16 +23,6 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="#">Inicio<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Generos
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="juegoSeleccionado">
-                    <?php
-                        include_once("componentes/generosYJuegos.php");
-                    ?>
-                  </div>
-                </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Login
@@ -44,6 +34,16 @@
                             ?>
                        </form>
                     </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Generos
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="juegoSeleccionado">
+                    <?php
+                        include_once("componentes/generosYJuegos.php");
+                    ?>
+                  </div>
                 </li>
                 <?php
                   include_once("componentes/pestanasnuevas.php");

@@ -7,7 +7,7 @@ class ResenasDB extends Resenas
     private static $generoSelct;
     public static function getConexion() {
         if (!isset(self::$conexion)) {
-            $cadena_conexion = 'mysql:dbname=datospagina;host=127.0.0.1';
+            $cadena_conexion = 'mysql:dbname=crfdatospagina;host=127.0.0.1';
             $usuario = 'root';
             $clave = '';
             self::$conexion = new PDO($cadena_conexion, $usuario, $clave);
@@ -76,9 +76,9 @@ class ResenasDB extends Resenas
         return $generos;
     }
 
-    private function mostrarJuegos(){
+    private function mostrarJuegos($juegos){
         foreach($juegos as $mostrar){
-            $mostrar="<button class='btn btn-block' type='button'>".$mostrar."</button>";
+            $mostrar="<button class='btn btn-block' type='button' id='$mostrar'>".$mostrar."</button>";
             echo $mostrar;
         }
     }
@@ -87,18 +87,18 @@ class ResenasDB extends Resenas
         //generar el filtrado sin realizar falta el WHERE con el $codigo que le tendria que pasar desde el boton de mostrar genero
         $juegos=[];
         try{
-            $sql="select genero,titulo from juegos";
+            $sql="select titulo from juegos";
             $preparada=self::getConexion()->prepare($sql);
             $preparada->execute();
             if($preparada->rowCount()>0){
                 foreach($preparada as $juego){
-                    echo $juego['titulo'];
+                    array_push($juegos,$juego[0]);
                 }
             }
         } catch (PDOException $e) {
             throw new Exception('Error con la base de datos: ' . $e->getMessage());
         }
-        self::mostrarJuegos();
+        self::mostrarJuegos($juegos);
     }
 
     public static function mostrarGeneros(){
