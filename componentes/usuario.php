@@ -33,7 +33,6 @@ class Usuario{
             if ($preparada->rowCount() == 1) {
                 $dato = $preparada->fetchAll(PDO::FETCH_ASSOC)[0];
                 if ($dato['nombre']==$nombre) {
-                    
                     return false;
                 }
             }else{
@@ -52,5 +51,22 @@ class Usuario{
         }
         return $datos;
     }
-}
+    public function getRang($nombre){
+        $datos=0;
+        try {
+            $sql = "select nombre,rango from usuarios where nombre = :nom"; 
+            $preparada = ResenasDB::getConexion()->prepare($sql);	
+            $preparada->execute( array(':nom'=>$nombre));
+            if ($preparada->rowCount() == 1) {
+                $dato = $preparada->fetchAll(PDO::FETCH_ASSOC)[0];
+                if ($dato['nombre']==$nombre) {
+                    $datos=$dato["rango"];
+                }
+            }
+        } catch (PDOException $e) {
+            throw new Exception('Error con la base de datos: ' . $e->getMessage());
+        }
+        return $datos;
+    }
+}   
 ?>

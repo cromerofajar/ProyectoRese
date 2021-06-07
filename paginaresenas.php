@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html><?php
+  session_start();
+?>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -38,12 +40,30 @@
                 </li>
                 <?php
                   include_once("componentes/pestanasnuevas.php");
+                  if(isset($_COOKIE["Usuario"])){
+                    if($_SESSION["Rango"]==1 && $_SESSION["Usuario"]==$_COOKIE["Usuario"]){
+                ?>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <form method="post">
+                        <button class="btn btn-info btn-block" type="button" id="AnadirJuego">Nuevo juego</button>
+                        <button class="btn btn-info btn-block" type="button" id="ModificarJuego">Modificar juego</button>
+                        <button class="btn btn-info btn-block" type="button" id="EliminarJuego">Eliminar juego</button>
+                        <button class="btn btn-info btn-block" type="button" id="EliminarResena">Eliminar Reseña</button>
+                        </form>
+                    </div>
+                </li>
+                <?php
+                  }}
                 ?>
               </ul>
             </div> 
           </nav>
           <div>
-              <div class="card">
+              <div class="card" id="cartaResenas">
                     <h1 id="tituloResena">Seleccione una reseña para poder verla</h1>
                     <h3 id="tituloJuego"></h3>
                     <p id="resena"></p>
