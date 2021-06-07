@@ -1,5 +1,5 @@
 <?php
-require_once("componentes/resenasDB.php");
+require_once("./componentes/usuario.php");
 
 if ($_SERVER["REQUEST_METHOD"]=="GET" && isset($_GET['error'])) {
     $mensajeError = $_GET['error'];
@@ -13,8 +13,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['Salir'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['iniciar'])) {
-
-    if (resenasDB::login($_POST['usuario'],$_POST['contra'])) {
+    if (Usuario::login($_POST['usuario'],$_POST['contra'])) {
         setcookie('Usuario',$_POST['usuario'], time()+3600);
         session_start();
         session_unset();
@@ -28,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['iniciar'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['registrarse'])) {
-    if(resenasDB::registrarse($_POST['usuario'],$_POST['contra'])){
+    if (Usuario::registrarse($_POST['usuario'],$_POST['contra'])){
         setcookie('Usuario',$_POST['usuario'], time()+3600);
         session_start();
         session_unset();

@@ -15,7 +15,7 @@ if(isset($_COOKIE["Usuario"])){
             <?php } ?>
             <div class="form-box">
                 <form id="resetForm" action="<?php echo htmlspecialchars('login.php');?>" method="POST">
-                    <input type="submit" name="Salir" value="Cerrar sessión">
+                    <button name="Salir" class="btn btn-warning btn-block Salir" type="submit">Cerrar Sesión</button>
                 </form> 
             </div>
         </div>

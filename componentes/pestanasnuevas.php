@@ -11,30 +11,22 @@ require_once("resenasDB.php");
     <body>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Juegos
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <form method="post" id="juegosVisibles"> 			
-                  <?php
-                  resenasDB::buscarJuegos();
-                  ?>
-            </form>
-        </div>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Reseñas
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <form method="post" id="juegosVisibles"> 			
+            <form method="post" id="tituloResenas"> 			
                   <?php
-                  resenasDB::buscarResenas();
+                  resenasDB::mostrarBotonesResenas();
+                  if(isset($_COOKIE["Usuario"])){
+                      ?>
+                      <button class="btn btn-info btn-block" type="button" id="nueva resena">Nueva reseña</button>
+                      <?php
+                  }
                   ?>
             </form>
         </div>
     </li>
     </body>
     </html>
-    
 <?php
 ?>
