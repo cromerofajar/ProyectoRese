@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['Salir'])) {
 if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['iniciar'])) {
     if (Usuario::login($_POST['usuario'],$_POST['contra'])) {
         setcookie('Usuario',$_POST['usuario'], time()+3600);
-        session_start();
         $_SESSION["Rango"]=Usuario::getRang($_POST["usuario"]);
         $_SESSION["Usuario"]=$_POST["usuario"];
         header('location:index.php');
@@ -30,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['iniciar'])) {
 if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['registrarse'])) {
     if (Usuario::registrarse($_POST['usuario'],$_POST['contra'])){
         setcookie('Usuario',$_POST['usuario'], time()+3600);
-        session_start();
         $_SESSION["Rango"]=Usuario::getRang($_POST["usuario"]);
         $_SESSION["Usuario"]=$_POST["usuario"];
         header('location:index.php');
