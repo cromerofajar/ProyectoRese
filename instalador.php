@@ -10,7 +10,7 @@ $query = file_get_contents("crfdatospagina.sql");
 $stmt = $db->prepare($query);
 
 if ($stmt->execute()){
-     echo "Success";
+     header("location:index.php");
 }else{ 
      echo "Fail";
 }

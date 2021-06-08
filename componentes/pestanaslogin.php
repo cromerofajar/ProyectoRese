@@ -44,7 +44,7 @@ if(isset($_COOKIE["Usuario"])){
             <div class="form-box">
                 <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                     <input name="usuario" type="text" placeholder="usuario" autofocus>
-                    <input type="contra" name="contra" placeholder="contraseña">
+                    <input type="password" name="contra" placeholder="contraseña">
                     <button name="iniciar" class="btn btn-info btn-block login" type="submit">Login</button>
                     <button name="registrarse" class="btn btn-info btn-block login" type="submit">Registrarse</button>
                 </form>
